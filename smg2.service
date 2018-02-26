@@ -1,0 +1,15 @@
+[Unit]
+Description=SMG-2 serial reader
+After=network.target
+
+[Service]
+Type=forking
+ProtectHome=true
+ProtectSystem=true
+ReadWritePaths=/storage/
+SyslogIdentifier=SMG2
+ExecStart=/bin/sh -c "exec /bin/SMG2 --RRD_DATABASE /storage/data/radiation.rrd --COM_PORT /dev/ttyUSB0 --rrdupdate_PATH /usr/bin/rrdupdate"
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
